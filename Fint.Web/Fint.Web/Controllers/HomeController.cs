@@ -10,6 +10,7 @@ namespace Fint.Web.Controllers
     {
         public ActionResult Index()
         {
+
             return View();
         }
 

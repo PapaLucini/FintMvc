@@ -1,6 +1,4 @@
-﻿@{
-    ViewBag.Title = "Home Page";
-}
+﻿@using Fint.Web.Constants;
 
 <div class="jumbotron">
     <h1>ASP.NET</h1>
@@ -9,7 +7,7 @@
 </div>
 
 <div class="row">
-    <div class="col-md-4">
+    @*<div class="col-md-4">
         <h2>Getting started</h2>
         <p>
             ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
@@ -17,15 +15,42 @@
             for enjoyable, agile development.
         </p>
         <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-    </div>
+    </div>*@
     <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+        <h2>@Labels.Index.TableHeaders.GasTableHeader</h2>
+        <table class="table" id="@Labels.Index.TableHeaders.GasTableHeader">
+            <thead>
+                <tr>
+                    <th scope="col">@Labels.Index.ColumnHeaders.Number</th>
+                    <th scope="col">@Labels.Index.ColumnHeaders.Name</th>
+                    <th scope="col">@Labels.Index.ColumnHeaders.Ammount</th>
+                    <th scope="col">@Labels.Index.ColumnHeaders.DayDue</th>
+                </tr>
+            </thead>
+            <tbody>
+                @*@foreach (var item in collection)
+                {
+                    <tr>
+                        <th scope="row">1</th>
+                        <td>Mark</td>
+                        <td>Otto</td>
+                        <td>mdo</td>
+                    </tr>
+                }*@
+
+                <tr>
+                    <th scope="row">2</th>
+                    <td>Gasolina</td>
+                    <td>50€</td>
+                    <td>@DateTime.UtcNow.Date</td>
+                </tr>
+                <tr>
+                    <th scope="row">3</th>
+                    <td>Mark</td>
+                    <td>Otto</td>
+                    <td>mdo</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </div>
