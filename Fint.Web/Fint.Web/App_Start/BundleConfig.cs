@@ -19,7 +19,7 @@ namespace Fint.Web
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Content/Scripts/modernizr-*"));
 
-            bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
+            bundles.Add(new Bundle("~/bundles/bootstrap").Include(
                       "~/Content/Scripts/bootstrap.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
