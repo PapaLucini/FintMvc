@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace Fint.Web.Models
+namespace Fint.Web.Models.Authentication
 {
     public class AuthenticationModel
     {

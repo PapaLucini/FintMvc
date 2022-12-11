@@ -1,7 +1,7 @@
 ﻿using Fint.Web.Authentication;
 using Fint.Web.Authentication.Interfaces;
 using Fint.Web.Constants;
-using Fint.Web.Models;
+using Fint.Web.Models.Authentication;
 using System;
 using System.Threading.Tasks;
 using System.Web.Mvc;
@@ -16,8 +16,6 @@ namespace Fint.Web.Controllers
             authProvider = CustomFirebaseAuthProvider.GetInstance();
         }
 
-
-        // GET: Account
         public ActionResult Login()
         {
             if (string.IsNullOrEmpty(authProvider.UserID))
