@@ -18,6 +18,8 @@ namespace HttpClientWrapper.Extensions
                 var responseMessage = await httpClient.SendAsync(httpRequestMessage);
                 var result = responseMessage.Content.ReadAsStringAsync().Result;
 
+                responseMessage.EnsureSuccessStatusCode(); //todo: retrieve status code
+
                 return JsonConvert.DeserializeObject<T>(result);
             }
             catch (Exception ex)

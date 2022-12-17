@@ -16,9 +16,14 @@ namespace Fint.Web.Controllers
 {
     public class HomeController : Controller
     {
+        public FirebaseClient firebaseClient = new FirebaseClient("https://fint-26951-default-rtdb.europe-west1.firebasedatabase.app/");
         public async Task<ActionResult> Index()
         {
-            //var db = new FirebaseClient("https://fint-26951-default-rtdb.europe-west1.firebasedatabase.app/");
+            //Check if current user has token
+            //var userStoredInfo = await firebaseClient.Child("UserInfo").Child("").OnceAsync<>();
+            //Get Token
+            //Store Token w user info
+
 
 
             //var y = await db.Child("ApiSettings").Child("Nordigen").OnceAsync<string>();

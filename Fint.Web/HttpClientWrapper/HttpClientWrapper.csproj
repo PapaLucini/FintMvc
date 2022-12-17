@@ -47,6 +47,7 @@
     <Compile Include="Constants\HttpRequestContants.cs" />
     <Compile Include="Extensions\HttpClientExtensions.cs" />
     <Compile Include="Extensions\RequestBuilderExtensions.cs" />
+    <Compile Include="HttpClientService.cs" />
     <Compile Include="Interfaces\IHttpClientService.cs" />
     <Compile Include="Interfaces\IRequestBuilder.cs" />
     <Compile Include="RequestBuilder.cs" />

@@ -8,13 +8,13 @@ namespace HttpClientWrapper.Constants
 {
     public static class HttpRequestContants
     {
-        public struct HeadersNames
+        public struct HeaderName
         {
             public static string Accept => "Accept";
             public static string ContentType => "Content-Type";
             public static string Authorization => "Authorization";
         }
-        public struct HeadersValues
+        public struct HeaderValue
         {
             public static string ApplicationJson => "application/json";
             public static string Bearer => "Bearer ";

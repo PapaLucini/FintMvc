@@ -8,9 +8,6 @@ namespace Fint.Web.Authentication.Interfaces
 {
     public interface ICustomAuthenticationProvider
     {
-        FirebaseAuthProvider FirebaseAuthProvider { get; }
-        string UserID { get; set; }
-
-        string UserEmail { get; set; }
+        FirebaseAuthProvider Provider { get; set; }
     }
 }

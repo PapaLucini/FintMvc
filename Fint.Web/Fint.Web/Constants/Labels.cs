@@ -7,7 +7,7 @@ namespace Fint.Web.Constants
 {
     public static class Labels
     {
-        public struct Index
+        public struct Table
         {
             public struct TableHeaders
             {

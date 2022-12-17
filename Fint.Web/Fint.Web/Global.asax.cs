@@ -1,5 +1,10 @@
 ﻿using Autofac;
 using Autofac.Integration.Mvc;
+using Fint.Web.App_Start;
+using Fint.Web.Authentication;
+using Fint.Web.Authentication.Interfaces;
+using Fint.Web.Constants;
+using Firebase.Auth;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,11 +23,17 @@ namespace Fint.Web
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-            var builder = new ContainerBuilder();
-            builder.RegisterControllers(typeof(MvcApplication).Assembly);
-            //builder.RegisterType<CustomFirebaseAuthProvider>().As<ICustomAuthenticationProvider > ();
-            //var container = builder.Build();
-            //DependencyResolver.SetResolver(container);
+            new DependencyInjectionConfig().Configure();
+        }
+
+        protected void Application_BeginRequest()
+        {
+            var userHasActiveSession = !string.IsNullOrEmpty(HttpContext.Current.Session?[AuthenticationConstants.SessionUserId]?.ToString() ?? string.Empty);
+            var isLoginPage = !this.Request.Url.LocalPath.StartsWith("/Account/Login", StringComparison.OrdinalIgnoreCase);
+            if (!userHasActiveSession && !isLoginPage)
+            {
+                Response.Redirect("/Account/Login");
+            }
         }
     }
 }

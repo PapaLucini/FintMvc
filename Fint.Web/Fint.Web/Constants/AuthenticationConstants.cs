@@ -8,6 +8,7 @@ namespace Fint.Web.Constants
 {
     public static class AuthenticationConstants
     {
+
         private static readonly string userAuthToken = "_userAuthToken";
         private static readonly string userId = "_userId";
 

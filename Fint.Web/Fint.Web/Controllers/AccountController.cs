@@ -1,8 +1,4 @@
-﻿using Fint.Web.Authentication;
-using Fint.Web.Authentication.Interfaces;
-using Fint.Web.Constants;
-using Fint.Web.Models.Authentication;
-using System;
+﻿using Fint.Web.Services.Authentication.Interfaces;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 
@@ -10,15 +6,17 @@ namespace Fint.Web.Controllers
 {
     public class AccountController : Controller
     {
-        private ICustomAuthenticationProvider authProvider;
-        public AccountController()
+        IAuthenticationSerivce authenticationSerivce;
+        public string UniqueUserId { get; private set; }
+
+        public AccountController(IAuthenticationSerivce authenticationSerivce)
         {
-            authProvider = CustomFirebaseAuthProvider.GetInstance();
+            this.authenticationSerivce = authenticationSerivce; 
         }
 
         public ActionResult Login()
         {
-            if (string.IsNullOrEmpty(authProvider.UserID))
+            if (string.IsNullOrEmpty(UniqueUserId))
             {
                 return View();
             }
@@ -27,23 +25,30 @@ namespace Fint.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Login(AuthenticationModel user)
+        public async Task<ActionResult> Login(Models.Authentication.User user)
         {
-            var response = await authProvider.FirebaseAuthProvider.SignInWithEmailAndPasswordAsync(user.Email, user.Password);
 
-            var userFirebaseToken = response.FirebaseToken;
+            //await authenticationSerivce.AuthenticateUser(user);
 
-            if (userFirebaseToken != null)
-            { 
-                HttpContext.Session.Add(AuthenticationConstants.SessionUserAuthToken, userFirebaseToken);
+            //var response = await authProvider.Provider.SignInWithEmailAndPasswordAsync(user.Email, user.Password);
 
-                var userId = response.User.LocalId;
-                HttpContext.Session.Add(AuthenticationConstants.SessionUserId, userId);
-                authProvider.UserID = userId;
-                return RedirectToAction("Index", "Home");
-            }
+            //var userFirebaseToken = response.FirebaseToken;
 
-            return View();
+            //if (userFirebaseToken != null)
+            //{ 
+            //    HttpContext.Session.Add(AuthenticationConstants.SessionUserAuthToken, userFirebaseToken);
+
+            //    var userId = response.User.LocalId;
+            //    HttpContext.Session.Add(AuthenticationConstants.SessionUserId, userId);
+            //    authProvider.UserID = userId;
+            //    return RedirectToAction("Index", "Home");
+            //}
+
+            //return View();
+
+
+            return RedirectToAction("Index", "Home");
+
         }
 
         public ActionResult Register()
@@ -52,31 +57,38 @@ namespace Fint.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Register(AuthenticationModel user) 
+        public async Task<ActionResult> Register(Models.Authentication.User user) 
         {
             var isValidInput = !string.IsNullOrEmpty(user?.Email) && !string.IsNullOrEmpty(user?.Password);
-            if (isValidInput) 
+
+            var createUserResponse = await authenticationSerivce.CreateUser(user);
+
+            if (createUserResponse != null)
             {
-                try
-                {
-                    await authProvider.FirebaseAuthProvider.CreateUserWithEmailAndPasswordAsync(user.Email, user.Password);
-
-                    var signInUserResponse = await authProvider.FirebaseAuthProvider.SignInWithEmailAndPasswordAsync(user.Email, user.Password);
-
-                    var userAuthToken = signInUserResponse.FirebaseToken;
-
-                    if (userAuthToken != null)
-                    {
-                        HttpContext.Session.Add("_userAuthToken", userAuthToken);
-
-                        return RedirectToAction("Index", "Home");
-                    }
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
+                RedirectToAction("Login");
             }
+            //if (isValidInput) 
+            //{
+            //    try
+            //    {
+            //        await authProvider.Provider.CreateUserWithEmailAndPasswordAsync(user.Email, user.Password);
+
+            //        var signInUserResponse = await authProvider.Provider.SignInWithEmailAndPasswordAsync(user.Email, user.Password);
+
+            //        var userAuthToken = signInUserResponse.FirebaseToken;
+
+            //        if (userAuthToken != null)
+            //        {
+            //            HttpContext.Session.Add("_userAuthToken", userAuthToken);
+
+            //            return RedirectToAction("Index", "Home");
+            //        }
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        throw ex;
+            //    }
+            //}
 
             return View("~/Views/Account/Register.cshtml");
         }
